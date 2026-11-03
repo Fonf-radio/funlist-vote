@@ -58,7 +58,7 @@
         }
         .artist {
             font-size: 11px;
-            color: #ff6b35;
+            color: #000000;
             font-weight: bold;
             text-transform: uppercase;
         }
@@ -520,7 +520,7 @@
 
         window.onload = function() {
             shuffleCards();
-            // checkAlreadyVoted();
+            checkAlreadyVoted();
         };
 
         function toggleVote(card) {
@@ -537,13 +537,11 @@
                 return;
             }
 
-            // Récupérer les titres votés
             const titres = [];
             selected.forEach(card => {
                 titres.push(card.dataset.artist + ' - ' + card.dataset.title);
             });
 
-            // Envoyer vers Google Sheets
             fetch('https://script.google.com/macros/s/AKfycbxxo2T8zzMOhHJHTB0sQoUSSxuxIX2uVqxVHUQKUj6YkrEjS3DqPG_odh1tA4TJaJGANQ/exec', {
                 method: 'POST',
                 mode: 'no-cors',
@@ -551,10 +549,7 @@
                 body: JSON.stringify({ titres: titres })
             });
 
-            // Enregistrer le vote dans localStorage
             localStorage.setItem('funradio_vote_week', getWeekNumber());
-
-            // Afficher le message de remerciement
             document.getElementById('vote-section').style.display = 'none';
             document.getElementById('merci').style.display = 'block';
         }
