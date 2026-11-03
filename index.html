@@ -1,0 +1,563 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Fun Radio - Top 30</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #0365CA;
+            color: #333333;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #000000;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #ffffff;
+            font-weight: bold;
+            margin-bottom: 30px;
+            font-size: 20px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #ff0055;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, border 0.2s;
+            border: 3px solid transparent;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .card:hover { transform: scale(1.05); }
+        .card.selected {
+            border: 3px solid #ff6b35;
+            transform: scale(1.05);
+        }
+        .card img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+        .info {
+            padding: 8px;
+        }
+        .artist {
+            font-size: 11px;
+            color: #ff6b35;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .title {
+            font-size: 13px;
+            color: #ffffff;
+            margin-top: 3px;
+        }
+        .check {
+            display: none;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #ff6b35;
+            color: white;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            line-height: 28px;
+            font-weight: bold;
+        }
+        .card.selected .check { display: block; }
+        .vote-btn {
+            display: block;
+            margin: 30px auto;
+            padding: 15px 40px;
+            background: #ff0055;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .vote-btn:hover { background: #cc0044; }
+        .counter {
+            text-align: center;
+            color: #000000;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        #merci {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            font-size: 22px;
+            color: #ff0055;
+        }
+        #deja-vote {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background: #fff3e0;
+            border-radius: 12px;
+            max-width: 600px;
+            margin: 40px auto;
+            font-size: 18px;
+            color: #ff0055;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>🎵 Vote pour la Fun List !</h1>
+    <p class="subtitle">Le nouveau classement sera révélé dimanche dès 10h sur Fun Radio 🎶</p>
+
+    <div id="deja-vote">
+        🎉 Tu as déjà voté aujourd'hui !<br><br>
+        <span style="font-size:14px; color:#777;">Rendez-vous dimanche dès 10h pour découvrir le nouveau classement de la Fun List sur Fun Radio !</span>
+    </div>
+
+    <div id="vote-section">
+        <p class="counter" id="counter">0 titre(s) sélectionné(s)</p>
+        <div class="grid">
+            
+    <div class="card" onclick="toggleVote(this)" data-id="0" data-artist="MILEY CYRUS" data-title="Bass Persuades">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ff/af/51/ffaf51a6-d711-6f92-a5d6-f90e98014f0f/075679564061.jpg/600x600bb.jpg" alt="MILEY CYRUS - Bass Persuades">
+        <div class="info">
+            <div class="artist">MILEY CYRUS</div>
+            <div class="title">Bass Persuades</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="1" data-artist="TOVE LO / STROMAE" data-title="Des Fleurs">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e2/ee/b1/e2eeb1c6-a96a-d768-643c-20e087bce6d8/00823375156413_Cover.jpg/600x600bb.jpg" alt="TOVE LO / STROMAE - Des Fleurs">
+        <div class="info">
+            <div class="artist">TOVE LO / STROMAE</div>
+            <div class="title">Des Fleurs</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="2" data-artist="DJ GOJA / JASON DERULO" data-title="Mi Chico">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/13/77/e2/1377e282-b756-f06c-7d8f-46c68fbd7276/825700894823_cover.jpg/600x600bb.jpg" alt="DJ GOJA / JASON DERULO - Mi Chico">
+        <div class="info">
+            <div class="artist">DJ GOJA / JASON DERULO</div>
+            <div class="title">Mi Chico</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="3" data-artist="BORMIN" data-title="Pumped Up Kicks">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/6c/72/21/6c72216f-4169-69c5-253e-1559796b9675/3596975182096_cover.jpg/600x600bb.jpg" alt="BORMIN - Pumped Up Kicks">
+        <div class="info">
+            <div class="artist">BORMIN</div>
+            <div class="title">Pumped Up Kicks</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="4" data-artist="RIVIERA" data-title="She Doesn't Mind">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d2/b3/11/d2b311c1-39e9-4c77-ff9f-f1a0e88a8ba9/cover.jpg/600x600bb.jpg" alt="RIVIERA - She Doesn't Mind">
+        <div class="info">
+            <div class="artist">RIVIERA</div>
+            <div class="title">She Doesn't Mind</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="5" data-artist="ARTBAT / DAVID GUETTA" data-title="Somebody That I Used To Know">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/b3/8a/98/b38a9867-2a9c-de2f-2d80-c624fb2200ec/11UMGIM19347.rgb.jpg/600x600bb.jpg" alt="ARTBAT / DAVID GUETTA - Somebody That I Used To Know">
+        <div class="info">
+            <div class="artist">ARTBAT / DAVID GUETTA</div>
+            <div class="title">Somebody That I Used To Know</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="6" data-artist="ADELA" data-title="Ain't In LA">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/53/c6/9a/53c69a6a-d1c4-0983-a20c-a67dceae554f/26UMGIM82372.rgb.jpg/600x600bb.jpg" alt="ADELA - Ain't In LA">
+        <div class="info">
+            <div class="artist">ADELA</div>
+            <div class="title">Ain't In LA</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="7" data-artist="ALEXANDRA STAN / TR3NACRIA" data-title="We Are Free">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/70/26/2f/70262f36-32c1-4561-283c-ff660355315c/cover.jpg/600x600bb.jpg" alt="ALEXANDRA STAN / TR3NACRIA - We Are Free">
+        <div class="info">
+            <div class="artist">ALEXANDRA STAN / TR3NACRIA</div>
+            <div class="title">We Are Free</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="8" data-artist="AVRIL DEL MAR" data-title="Bayahibe">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d8/e2/3a/d8e23ab5-fe82-c119-c622-169357d0808d/196874309957.jpg/600x600bb.jpg" alt="AVRIL DEL MAR - Bayahibe">
+        <div class="info">
+            <div class="artist">AVRIL DEL MAR</div>
+            <div class="title">Bayahibe</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="9" data-artist="KRIS KROSS AMSTERDAM / LUISA SONZA / WILLY WILLIAM" data-title="My Oh My">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/4b/13/81/4b1381c0-1ffe-81d1-dd9e-c7693082c6be/190295862015.jpg/600x600bb.jpg" alt="KRIS KROSS AMSTERDAM / LUISA SONZA / WILLY WILLIAM - My Oh My">
+        <div class="info">
+            <div class="artist">KRIS KROSS AMSTERDAM / LUISA SONZA / WILLY WILLIAM</div>
+            <div class="title">My Oh My</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="10" data-artist="LAVINIA / ELY OAKS" data-title="Reasons">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/93/32/f593321a-ef89-7361-0c31-1e9eeabf0237/3575026.jpg/600x600bb.jpg" alt="LAVINIA / ELY OAKS - Reasons">
+        <div class="info">
+            <div class="artist">LAVINIA / ELY OAKS</div>
+            <div class="title">Reasons</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="11" data-artist="ANGELE" data-title="Une Seule Vie">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/bc/39/8c/bc398c3b-f73a-0d32-a375-58b9778af5f3/196874659786.jpg/600x600bb.jpg" alt="ANGELE - Une Seule Vie">
+        <div class="info">
+            <div class="artist">ANGELE</div>
+            <div class="title">Une Seule Vie</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="12" data-artist="DAVID GUETTA / HYPATON" data-title="You And I, Me And You">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/81/f4/ce/81f4ce8e-4ee2-64f4-aa3e-4001daa667f8/1200220041756.jpg/600x600bb.jpg" alt="DAVID GUETTA / HYPATON - You And I, Me And You">
+        <div class="info">
+            <div class="artist">DAVID GUETTA / HYPATON</div>
+            <div class="title">You And I, Me And You</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="13" data-artist="IMAEL ANGEL" data-title="Bad Times">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d5/ad/da/d5adda6b-65f4-755a-05ab-f33a4e0e4cdd/artwork.jpg/600x600bb.jpg" alt="IMAEL ANGEL - Bad Times">
+        <div class="info">
+            <div class="artist">IMAEL ANGEL</div>
+            <div class="title">Bad Times</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="14" data-artist="KAROL G" data-title="Bby Wow">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2b/66/b2/2b66b26c-ab23-faa1-c4ee-06fa2cce8f76/26UM1IM00558.rgb.jpg/600x600bb.jpg" alt="KAROL G - Bby Wow">
+        <div class="info">
+            <div class="artist">KAROL G</div>
+            <div class="title">Bby Wow</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="15" data-artist="JUSTICE / TAME IMPALA / SZA" data-title="Flower In A Hurricane">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/af/23/54/af235448-23b3-a3bf-0738-87f6c44a4bbc/5056556187486_cover.jpg/600x600bb.jpg" alt="JUSTICE / TAME IMPALA / SZA - Flower In A Hurricane">
+        <div class="info">
+            <div class="artist">JUSTICE / TAME IMPALA / SZA</div>
+            <div class="title">Flower In A Hurricane</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="16" data-artist="PROSPA / CLOONEE" data-title="Free Your Mind">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/1e/03/50/1e03508a-6c55-9da3-fd4c-2d181919d760/820200597014.jpg/600x600bb.jpg" alt="PROSPA / CLOONEE - Free Your Mind">
+        <div class="info">
+            <div class="artist">PROSPA / CLOONEE</div>
+            <div class="title">Free Your Mind</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="17" data-artist="SWEDISH HOUSE MAFIA / LYKKE LI" data-title="Happiness Is So Sad">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/cf/19/9c/cf199c26-6f59-a4b6-4309-c597ceea14d2/14006.jpg/600x600bb.jpg" alt="SWEDISH HOUSE MAFIA / LYKKE LI - Happiness Is So Sad">
+        <div class="info">
+            <div class="artist">SWEDISH HOUSE MAFIA / LYKKE LI</div>
+            <div class="title">Happiness Is So Sad</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="18" data-artist="DIMITRI VEGAS & LIKE MIKE / MARLON HOFFSTADT / DJ" data-title="Makina Time">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f2/e0/03/f2e0035c-cd0c-97f1-8569-281bf849249f/199806774984.jpg/600x600bb.jpg" alt="DIMITRI VEGAS & LIKE MIKE / MARLON HOFFSTADT / DJ - Makina Time">
+        <div class="info">
+            <div class="artist">DIMITRI VEGAS & LIKE MIKE / MARLON HOFFSTADT / DJ</div>
+            <div class="title">Makina Time</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="19" data-artist="HUGEL / DAVID GUETTA / FRENCH MONTANA / AIDAN M" data-title="Shine">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/86/10/b4/8610b422-9eaf-dccc-bb90-68751386deeb/1134279.jpg/600x600bb.jpg" alt="HUGEL / DAVID GUETTA / FRENCH MONTANA / AIDAN M - Shine">
+        <div class="info">
+            <div class="artist">HUGEL / DAVID GUETTA / FRENCH MONTANA / AIDAN M</div>
+            <div class="title">Shine</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="20" data-artist="FISHER" data-title="Staring At The Sun">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f4/d1/8f/f4d18fd5-76b9-0f58-4732-6dcd58f23990/cover.jpg/600x600bb.jpg" alt="FISHER - Staring At The Sun">
+        <div class="info">
+            <div class="artist">FISHER</div>
+            <div class="title">Staring At The Sun</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="21" data-artist="ARMIN VAN BUUREN" data-title="Take Me Home">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/fd/24/c0/fd24c036-7150-a742-f034-cdaca521dbdd/8718522634482.png/600x600bb.jpg" alt="ARMIN VAN BUUREN - Take Me Home">
+        <div class="info">
+            <div class="artist">ARMIN VAN BUUREN</div>
+            <div class="title">Take Me Home</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="22" data-artist="ADELE CASTILLON / TRINIX" data-title="Eté avec toi (Trinix Remix)">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ee/bb/bb/eebbbb83-cd14-8f93-42e3-6f4f3448d310/196874745083.jpg/600x600bb.jpg" alt="ADELE CASTILLON / TRINIX - Eté avec toi (Trinix Remix)">
+        <div class="info">
+            <div class="artist">ADELE CASTILLON / TRINIX</div>
+            <div class="title">Eté avec toi (Trinix Remix)</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="23" data-artist="KANOE / RIDSA" data-title="Hola Que Tai">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/a4/b3/ea/a4b3ea5b-5c45-eb94-ffad-badc76720a36/197190092585.jpg/600x600bb.jpg" alt="KANOE / RIDSA - Hola Que Tai">
+        <div class="info">
+            <div class="artist">KANOE / RIDSA</div>
+            <div class="title">Hola Que Tai</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="24" data-artist="L.B. ONE" data-title="Reste">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/5b/02/d7/5b02d772-89b4-fddf-5658-ed940d9cc2db/190296196867.jpg/600x600bb.jpg" alt="L.B. ONE - Reste">
+        <div class="info">
+            <div class="artist">L.B. ONE</div>
+            <div class="title">Reste</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="25" data-artist="EVA" data-title="Sur la piste">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/14/65/cd/1465cdfa-aa56-3a0e-edb5-fcce922afc53/cover.jpg/600x600bb.jpg" alt="EVA - Sur la piste">
+        <div class="info">
+            <div class="artist">EVA</div>
+            <div class="title">Sur la piste</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="26" data-artist="TR3NACRIA / ROBINS" data-title="Too Late (C'est Trop Tard)">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/79/e0/38/79e0382a-0128-62e1-dcff-e9ea9d5808b1/196874809419.jpg/600x600bb.jpg" alt="TR3NACRIA / ROBINS - Too Late (C'est Trop Tard)">
+        <div class="info">
+            <div class="artist">TR3NACRIA / ROBINS</div>
+            <div class="title">Too Late (C'est Trop Tard)</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="27" data-artist="GIMS / MAUVAIS DJO" data-title="Vive La Monnaie">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/9d/a1/ec/9da1ec57-d4bb-28fc-7e61-5fa0e9cecb52/cover.jpg/600x600bb.jpg" alt="GIMS / MAUVAIS DJO - Vive La Monnaie">
+        <div class="info">
+            <div class="artist">GIMS / MAUVAIS DJO</div>
+            <div class="title">Vive La Monnaie</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="28" data-artist="OFENBACH" data-title="Four To The Floor">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music1/v4/8b/5c/cc/8b5ccc97-8328-9d3b-ab23-08773e16a6b8/dj.fdohbmat.jpg/600x600bb.jpg" alt="OFENBACH - Four To The Floor">
+        <div class="info">
+            <div class="artist">OFENBACH</div>
+            <div class="title">Four To The Floor</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="29" data-artist="HUGEL / IMAEL ANGEL / ULTRA NATE" data-title="Movin' To The Sun">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/96/61/7a/96617ab5-51da-7cfc-97e5-c5a6a893c210/1087654.jpg/600x600bb.jpg" alt="HUGEL / IMAEL ANGEL / ULTRA NATE - Movin' To The Sun">
+        <div class="info">
+            <div class="artist">HUGEL / IMAEL ANGEL / ULTRA NATE</div>
+            <div class="title">Movin' To The Sun</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="30" data-artist="BEBE REXHA / DAVID GUETTA" data-title="Sad Girls">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c2/e8/e4/c2e8e4f4-3f2a-d265-3512-c44a1e11459f/199316476927_cover.jpg/600x600bb.jpg" alt="BEBE REXHA / DAVID GUETTA - Sad Girls">
+        <div class="info">
+            <div class="artist">BEBE REXHA / DAVID GUETTA</div>
+            <div class="title">Sad Girls</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="31" data-artist="GIMS" data-title="Soleil">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/76/1b/29/761b2990-5c9e-e19a-9326-0d8720c95ee5/cover.jpg/600x600bb.jpg" alt="GIMS - Soleil">
+        <div class="info">
+            <div class="artist">GIMS</div>
+            <div class="title">Soleil</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="32" data-artist="FARRUKO / GREEICY / STEVE AOKI" data-title="Yapaque">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/31/bc/86/31bc862c-4e5f-c193-1110-292b0660b775/196874337899.jpg/600x600bb.jpg" alt="FARRUKO / GREEICY / STEVE AOKI - Yapaque">
+        <div class="info">
+            <div class="artist">FARRUKO / GREEICY / STEVE AOKI</div>
+            <div class="title">Yapaque</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="33" data-artist="KLAAN" data-title="Café Con Ron">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/49/ac/ab/49acab07-302a-2fac-f7fc-40928cd27008/0000000106016_cover.jpg/600x600bb.jpg" alt="KLAAN - Café Con Ron">
+        <div class="info">
+            <div class="artist">KLAAN</div>
+            <div class="title">Café Con Ron</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="34" data-artist="SHAKIRA / BURNA BOY" data-title="Dai Dai">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/61/49/8d/61498ded-f0dc-227d-cd1d-2051b5d9f195/196874328590.jpg/600x600bb.jpg" alt="SHAKIRA / BURNA BOY - Dai Dai">
+        <div class="info">
+            <div class="artist">SHAKIRA / BURNA BOY</div>
+            <div class="title">Dai Dai</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="35" data-artist="HUGEL / SOLTO" data-title="Jamaican (Bam Bam)">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ed/f1/7c/edf17ca2-848a-c0e7-0772-4abf9666d70f/26UMGIM27048.rgb.jpg/600x600bb.jpg" alt="HUGEL / SOLTO - Jamaican (Bam Bam)">
+        <div class="info">
+            <div class="artist">HUGEL / SOLTO</div>
+            <div class="title">Jamaican (Bam Bam)</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="36" data-artist="JUNGELI / EMMA" data-title="Juste un peu">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e1/3c/d8/e13cd888-0a38-af01-087b-bca76229df1c/26UMGIM45855.rgb.jpg/600x600bb.jpg" alt="JUNGELI / EMMA - Juste un peu">
+        <div class="info">
+            <div class="artist">JUNGELI / EMMA</div>
+            <div class="title">Juste un peu</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="37" data-artist="JOE DWET FILE" data-title="Rihanna">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/d0/74/1d/d0741d5c-8edf-e530-0d90-93d23b629fd2/886449932290.jpg/600x600bb.jpg" alt="JOE DWET FILE - Rihanna">
+        <div class="info">
+            <div class="artist">JOE DWET FILE</div>
+            <div class="title">Rihanna</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+    <div class="card" onclick="toggleVote(this)" data-id="38" data-artist="ANGELE / JUSTICE" data-title="What You Want">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e7/29/a1/e729a1f0-eaaf-80eb-3c31-91e9601e2944/5056556175278_cover.jpg/600x600bb.jpg" alt="ANGELE / JUSTICE - What You Want">
+        <div class="info">
+            <div class="artist">ANGELE / JUSTICE</div>
+            <div class="title">What You Want</div>
+        </div>
+        <div class="check">✓</div>
+    </div>
+    
+        </div>
+        <button class="vote-btn" onclick="submitVote()">Valider mon choix</button>
+    </div>
+
+    <div id="merci">
+        <span style="font-size:26px; color:#ffffff; font-weight:bold;">Merci pour ton vote !</span><br><br>
+        <span style="font-size:20px; color:#ffffff; font-weight:bold;">Rendez-vous dimanche dès 10h pour découvrir le nouveau classement de la Fun List sur Fun Radio !</span>
+    </div>
+
+    <script>
+        function shuffleCards() {
+            const grid = document.querySelector('.grid');
+            const cards = Array.from(grid.children);
+            cards.sort(() => Math.random() - 0.5);
+            cards.forEach(card => grid.appendChild(card));
+        }
+
+        function getWeekNumber() {
+            const now = new Date();
+            return now.getFullYear() + '-' + (now.getMonth()+1) + '-' + now.getDate();
+        }
+
+        function checkAlreadyVoted() {
+            const cookieVote = localStorage.getItem('funradio_vote_week');
+            if (cookieVote === getWeekNumber()) {
+                document.getElementById('vote-section').style.display = 'none';
+                document.getElementById('deja-vote').style.display = 'block';
+                return true;
+            }
+            return false;
+        }
+
+        window.onload = function() {
+            shuffleCards();
+            // checkAlreadyVoted();
+        };
+
+        function toggleVote(card) {
+            if (checkAlreadyVoted()) return;
+            card.classList.toggle('selected');
+            const count = document.querySelectorAll('.card.selected').length;
+            document.getElementById('counter').textContent = count + ' titre(s) sélectionné(s)';
+        }
+
+        function submitVote() {
+            const selected = document.querySelectorAll('.card.selected');
+            if (selected.length === 0) {
+                alert('Sélectionne au moins un titre !');
+                return;
+            }
+
+            // Récupérer les titres votés
+            const titres = [];
+            selected.forEach(card => {
+                titres.push(card.dataset.artist + ' - ' + card.dataset.title);
+            });
+
+            // Envoyer vers Google Sheets
+            fetch('https://script.google.com/macros/s/AKfycbxxo2T8zzMOhHJHTB0sQoUSSxuxIX2uVqxVHUQKUj6YkrEjS3DqPG_odh1tA4TJaJGANQ/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ titres: titres })
+            });
+
+            // Enregistrer le vote dans localStorage
+            localStorage.setItem('funradio_vote_week', getWeekNumber());
+
+            // Afficher le message de remerciement
+            document.getElementById('vote-section').style.display = 'none';
+            document.getElementById('merci').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
